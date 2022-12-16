@@ -1,9 +1,10 @@
 {
-  "name": "server",
-  "version": "1.0.0",
+  "name": "ecdsa-node-server",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,6 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ethereum-cryptography": "^1.1.2",
     "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
