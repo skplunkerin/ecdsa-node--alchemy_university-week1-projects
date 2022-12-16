@@ -70,17 +70,15 @@ function logNewKeyCard() {
   const address = getAddress(pubKey);
 
   // NOTE: text formatting pulled (then modified) from the MintDefense Discord.
-  console.log("");
   console.log(`
   ╭┄┄┄┄┄NEW PRIVATE/PUBLIC KEY CARD┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄\\
   ┊
   ┊ - privateKey:\t${toHex(privKey)}
   ┊ - publicKey:\t${toHex(pubKey)}
-  ┊ - address:\t${toHex(address)}
+  ┊ - address:\t\t${toHex(address)}
   ┊
   ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄/
   `);
-  console.log("");
   console.log("  function completed\n");
 }
 
