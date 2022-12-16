@@ -5,18 +5,36 @@
 
 ## Challenge Summary:
 
-The best way to deeply understand blockchain is to put yourself into development mode. What would it be like to build your own blockchain? Let's start by applying our knowledge of hashes and digital signatures to our very first project: ECDSA Node.
+The best way to deeply understand blockchain is to put yourself into development
+mode. What would it be like to build your own blockchain? Let's start by
+applying our knowledge of hashes and digital signatures to our very first
+project: ECDSA Node.
 
-In this project you'll have a simple react front-end which will communicate with a single server. This server will be responsible for transferring balances between accounts. Since it's a single server, it is centralized, so we'll need to trust that the server operator is not malicious for this exercise (more on this later!).
+In this project you'll have a simple react front-end which will communicate with
+a single server. This server will be responsible for transferring balances
+between accounts. Since it's a single server, it is centralized, so we'll need
+to trust that the server operator is not malicious for this exercise (more on
+this later!).
 
 ### 🏁 Your Goal: ECDSA
 
-This project begins with a client that is allowed to transfer any funds from any account to another account. That's not very secure. By applying digital signatures we can require that only the user with the appropriate **private key** can create a signature that will allow them to move funds from one account to the other. Then, the server can **verify** the signature to move funds from one account to another.
+This project begins with a client that is allowed to transfer any funds from any
+account to another account. That's not very secure. By applying digital
+signatures we can require that only the user with the appropriate
+**private key** can create a signature that will allow them to move funds from
+one account to the other. Then, the server can **verify** the signature to move
+funds from one account to another.
 
-1. Incorporate Public Key Cryptography so transfers can only be completed with a valid signature
-2. The person sending the transaction should have to verify that they own the private key corresponding to the address that is sending funds
+1. Incorporate Public Key Cryptography so transfers can only be completed with a
+   valid signature
 
-> 🤔 While you're working through this project consider the security implications of your implementation decisions. What if someone intercepted a valid signature, would they be able to replay that transfer by sending it back to the server?
+2. The person sending the transaction should have to verify that they own the
+   private key corresponding to the address that is sending funds
+
+> 🤔 While you're working through this project consider the security
+> implications of your implementation decisions. What if someone intercepted a
+> valid signature, would they be able to replay that transfer by sending it back
+> to the server?
 
 ---
 
@@ -39,9 +57,58 @@ out the following video:
 
 https://www.loom.com/share/0d3c74890b8e44a5918c4cacb3f646c4
 
-### Project setup:
+### Project:
 
-#### Client
+#### UI & API Details
+
+- **Server:**
+
+  - There are 3 pre-defined wallet addresses and balances for you to use in
+    `./server/index.js` that get specified from `./server/.env`:
+
+    - **Address:** `${process.env.KEY_CARD_ONE_ADDRESS}` - **Balance:** `100`
+    - **Address:** `${process.env.KEY_CARD_TWO_ADDRESS}` - **Balance:** `50`
+    - **Address:** `${process.env.KEY_CARD_THREE_ADDRESS}` - **Balance:** `75`
+
+- **Client:**
+
+  - The left-hand side of the UI _(titled **"Your Wallet"**)_ shows you the
+    wallet and account balance.
+
+    - Type in one of the wallet address `privateKey`'s from `./server/.env`
+
+  - The right-hand side of the UI _(titled **"Send Transaction"**)_ is where you
+    can send an amount to a specified wallet address.
+
+##### Tips
+
+**Helpful Resources**
+
+We're going to be incorporating the concepts we learned from this week into the
+final project. Here are a few resources you'll find helpful when working on this
+project:
+
+1. Public Key Exercises in the Digital Signatures lesson _(Recover Keys, Sign_
+   _Message, Hash Messages)_
+
+2. The [Ethereum Cryptography library](https://github.com/ethereum/js-ethereum-cryptography)
+   _(specifically [random private key generation](https://github.com/ethereum/js-ethereum-cryptography#secp256k1-curve))_
+
+**Optimal Solutions**
+
+As with all open-ended projects, there are multiple solutions we can build here,
+a few are better than others. We recommend watching the video walk-through to
+understand what the optimal solutions are and tradeoffs that come with each
+path.
+
+---
+
+#### Setup:
+
+Clone the repository to your machine, then setup both the **Client** and
+**Server** using the following steps:
+
+##### Client
 
 The `client/` folder contains a [react app](https://reactjs.org/) using
 [vite](https://vitejs.dev/).
@@ -56,7 +123,7 @@ The `client/` folder contains a [react app](https://reactjs.org/) using
 
 4. Now you should be able to visit the app at http://localhost:5173/
 
-#### Server
+##### Server
 
 The `server/` folder contains a `node.js` server using
 [express](https://expressjs.com/).
@@ -65,18 +132,29 @@ The `server/` folder contains a `node.js` server using
 
 1. Open a terminal within the `./server` folder
 
-2. Run `npm install` to install all the dependencies
+2. Install dependencies
 
-3. Run `node index` to start the server
+   ```sh
+   npm i
+   ```
 
-4. The application should connect to the default server port `3042`
+3. Duplicate `.env-sample` to `.env` and setup the ENV variables:
+
+   ```sh
+   cp .env-sample .env
+   node scripts/generateTestAddresses.js
+   ```
+
+   - Copy the outputs from the `generateTestAddresses.js` script to the correct
+     `.env` variables
+
+4. Run the project locally:
+
+   ```sh
+   npm run dev
+   ```
+
+5. The application should connect to the default server port `3042`
    automatically!
-   _(http://127.0.0.1:3042/)_
 
-> _**Hint** - Use [nodemon](https://www.npmjs.com/package/nodemon) instead of_\
-> _`node` to automatically restart the server on any changes:_
->
-> 1. In the terminal, run `npm i --save-dev nodemon`
-> 2. Update `./server/package.json` scripts to have the following:
->    `"dev": "nodemon index.js"`
-> 3. In the terminal, run `npm run dev`
+   _(http://127.0.0.1:3042/)_

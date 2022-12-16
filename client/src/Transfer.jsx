@@ -1,7 +1,9 @@
 import { useState } from "react";
 import server from "./server";
+import { toHex } from "ethereum-cryptography/utils";
+import { hashMessage, signMessage } from "./scripts/crypto";
 
-function Transfer({ address, setBalance }) {
+function Transfer({ privateKey, setBalance }) {
   const [sendAmount, setSendAmount] = useState("");
   const [recipient, setRecipient] = useState("");
 
@@ -11,16 +13,27 @@ function Transfer({ address, setBalance }) {
     evt.preventDefault();
 
     try {
+      // Sign the data being sent
+      let data = {
+        recipient,
+        amount: parseInt(sendAmount),
+      };
+      let [signature, recoveryBit] = await signMessage(
+        hashMessage(JSON.stringify(data)),
+        privateKey
+      );
       const {
         data: { balance },
-      } = await server.post(`send`, {
-        sender: address,
-        amount: parseInt(sendAmount),
-        recipient,
+      } = await server.post(`send`, data, {
+        headers: {
+          // TODO: how do we tell the server the recovery bit info? There's
+          // most likely a better way (or convention) for this. (topher)
+          signature: `${toHex(signature)}${recoveryBit}`,
+        },
       });
       setBalance(balance);
     } catch (ex) {
-      alert(ex.response.data.message);
+      alert(ex);
     }
   }
 
@@ -38,9 +51,9 @@ function Transfer({ address, setBalance }) {
       </label>
 
       <label>
-        Recipient
+        Recipient Address
         <input
-          placeholder="Type an address, for example: 0x2"
+          placeholder="Type an address (valid addresses found in `./server/.env`)"
           value={recipient}
           onChange={setValue(setRecipient)}
         ></input>
