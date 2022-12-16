@@ -7,7 +7,6 @@ const { utf8ToBytes } = require("ethereum-cryptography/utils");
 //
 // @privateKey param must be a string (use `toHex()` before for Uint8Arrays)
 function getPublicKey(privateKey) {
-  // console.log("\n  running getPublicKey()...");
   return secp.getPublicKey(privateKey);
 }
 
@@ -16,7 +15,6 @@ function getPublicKey(privateKey) {
 //
 // @publicKey param must be a string (use `toHex()` before for Uint8Arrays)
 function getAddress(publicKey) {
-  // console.log("\n  running getAddress()...");
   // take the 1st byte off the public key to know the format of the key
   const firstByte = publicKey[0];
   const remainingKeyBytes = publicKey.slice(1, publicKey.length);

@@ -71,7 +71,7 @@ app.post("/send", async (req, res) => {
 
   setInitialBalance(sender);
   setInitialBalance(recipient);
-  // verifies that the user address has the available funds toi transfer
+  // verify that the sender address has the available funds to transfer
   if (balances[sender] < amount) {
     res.status(400).send({ message: "Not enough funds!" });
   } else {

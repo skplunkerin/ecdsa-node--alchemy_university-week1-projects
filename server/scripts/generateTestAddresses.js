@@ -71,13 +71,15 @@ function logNewKeyCard() {
 
   // NOTE: text formatting pulled (then modified) from the MintDefense Discord.
   console.log("");
-  console.log("╭┄┄┄┄┄NEW PRIVATE/PUBLIC KEY CARD┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄\\");
-  console.log("┊");
-  console.log("┊ - privateKey:\t", toHex(privKey));
-  console.log("┊ - publicKey:\t", toHex(pubKey));
-  console.log("┊ - address:\t", toHex(address));
-  console.log("┊");
-  console.log("╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄/");
+  console.log(`
+  ╭┄┄┄┄┄NEW PRIVATE/PUBLIC KEY CARD┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄\\
+  ┊
+  ┊ - privateKey:\t${toHex(privKey)}
+  ┊ - publicKey:\t${toHex(pubKey)}
+  ┊ - address:\t${toHex(address)}
+  ┊
+  ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄/
+  `);
   console.log("");
   console.log("  function completed\n");
 }
